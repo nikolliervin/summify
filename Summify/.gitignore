@@ -1,0 +1,49 @@
+# Visual Studio
+.vs/
+*.sln.ide
+*.sln.dotsettings
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+[Bb]in/
+[Oo]bj/
+
+# User-specific files
+*.user
+*.suo
+*.userprefs
+
+# Visual Studio Code
+.vscode/
+
+# Rider
+.idea/
+
+# Dotnet specific
+appsettings*.json
+*.db
+
+# NuGet packages
+*.nupkg
+*.snupkg
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Other
+*.DS_Store
+*.pdb
+*.mdb
+*.pidb
+*.svd
+*.sln.ide
+*.sln.dotsettings
+*.sln.cache
+
+# Coverage results
+coverage/

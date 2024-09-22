@@ -3,8 +3,14 @@ using Microsoft.AspNetCore.Mvc;
     [ApiController]
     [Route("api/[controller]")]
     public class SummarizeController : ControllerBase
-    {
-        // POST: api/summarize
+    {   
+        private readonly SummarizeService _summarizeService;
+        private readonly YouTubeService _youtubeService;
+        public SummarizeController(SummarizeService summarizeService, YouTubeService youTubeService)
+        {
+            _summarizeService = summarizeService;
+            _youtubeService = _youtubeService;
+        }
         [HttpPost]
         public IActionResult Summarize([FromBody] string videURL)
         {
@@ -12,7 +18,7 @@ using Microsoft.AspNetCore.Mvc;
             {
                 return BadRequest("Invalid URL.");
             }
-            return Ok("Text");
+            return Ok(string.Empty);
         }
 
     }
