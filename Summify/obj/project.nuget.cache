@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "DPQEcujO/Gjz14+MXZd2Q6NyYcrw6cwf3Ut6vnj9l8fggPqphzWKvEu6RrE459rscx4+EAp8xTisG88uVihE9A==",
+  "success": true,
+  "projectFilePath": "/home/irwin/source/repos/summify-api/Summify/Summify.csproj",
+  "expectedPackageFiles": [
+    "/home/irwin/.nuget/packages/microsoft.aspnetcore.openapi/8.0.8/microsoft.aspnetcore.openapi.8.0.8.nupkg.sha512",
+    "/home/irwin/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "/home/irwin/.nuget/packages/microsoft.openapi/1.4.3/microsoft.openapi.1.4.3.nupkg.sha512",
+    "/home/irwin/.nuget/packages/swashbuckle.aspnetcore/6.4.0/swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
+    "/home/irwin/.nuget/packages/swashbuckle.aspnetcore.swagger/6.4.0/swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
+    "/home/irwin/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.4.0/swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
+    "/home/irwin/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.4.0/swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512"
+  ],
+  "logs": []
+}
