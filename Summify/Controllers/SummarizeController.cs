@@ -1,24 +1,33 @@
 using Microsoft.AspNetCore.Mvc;
 
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/summarize")]
     public class SummarizeController : ControllerBase
     {   
-        private readonly SummarizeService _summarizeService;
-        private readonly YouTubeService _youtubeService;
-        public SummarizeController(SummarizeService summarizeService, YouTubeService youTubeService)
+        private readonly ISummarizeService _summarizeService;
+        private readonly IYouTubeService _youtubeService;
+        public SummarizeController(ISummarizeService summarizeService, IYouTubeService youTubeService)
         {
             _summarizeService = summarizeService;
-            _youtubeService = _youtubeService;
+            _youtubeService = youTubeService;
         }
         [HttpPost]
-        public IActionResult Summarize([FromBody] string videURL)
-        {
-            if (videURL == null || string.IsNullOrWhiteSpace(videURL))
+        public async Task<IActionResult> Summarize([FromBody] SummarizeRequest summarizeRequest)
+        {   
+            var summarizedText = string.Empty;
+            if (summarizeRequest.VideoUrl == null || string.IsNullOrWhiteSpace(summarizeRequest.VideoUrl))
             {
                 return BadRequest("Invalid URL.");
             }
-            return Ok(string.Empty);
+            var videoContent = await _youtubeService.GetVideoText(summarizeRequest.VideoUrl);
+            if(videoContent != null){
+                //summarizedText = await _summarizeService.Summarize(videoContent);
+                summarizedText = string.Empty;
+            }
+            else{
+                return Ok("No subtitles found!");
+            }
+            return Ok(summarizedText);
         }
 
     }

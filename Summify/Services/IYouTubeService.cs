@@ -1,4 +1,4 @@
 public interface IYouTubeService
 {
-    string GetVideoText(string videoUrl);
+    Task<string> GetVideoText(string videoUrl);
 }
