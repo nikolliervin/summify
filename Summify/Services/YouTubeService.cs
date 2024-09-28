@@ -1,23 +1,29 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using YoutubeTranscriptApi;
+
 public class YouTubeService : IYouTubeService
 {   
-    private string _url;
-    private readonly string? _key;
-
     private readonly HttpClient _httpClient;
+
     public YouTubeService(IConfiguration configuration)
     {
-        _key = configuration["Keys:API_KEY"];
         _httpClient = new HttpClient();
     }
-    public async Task<string> GetVideoText(string videoUrl)
+
+    public string GetVideoText(SummarizeRequest request)
     {   
-        _url = $"https://www.googleapis.com/youtube/v3/search?key={_key}&part=snippet&q={Uri.EscapeDataString(videoUrl)}";
+        var videoId = Helpers.GetVideoId(request.VideoUrl!);
+        var youTubeTranscriptApi = new YouTubeTranscriptApi();
+        
+        var transcriptItems = request.Language != null 
+        ? youTubeTranscriptApi.GetTranscript(videoId, request.Language) 
+        : youTubeTranscriptApi.GetTranscript(videoId);
+        
+        var combinedText = string.Join(" ", transcriptItems.Select(item => item.Text));
 
-        var response = await _httpClient.GetStringAsync(_url);
-
-        if(response != null)
-            return response.ToString();
-        else
-            return string.Empty;
+        return combinedText;
     }
 }
