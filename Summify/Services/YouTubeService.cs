@@ -6,13 +6,7 @@ using YoutubeTranscriptApi;
 
 public class YouTubeService : IYouTubeService
 {   
-    private readonly HttpClient _httpClient;
-
-    public YouTubeService(IConfiguration configuration)
-    {
-        _httpClient = new HttpClient();
-    }
-
+  
     public string GetVideoText(SummarizeRequest request)
     {   
         var videoId = Helpers.GetVideoId(request.VideoUrl!);
