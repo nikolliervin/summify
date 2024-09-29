@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 using System.Diagnostics;
-
+using Newtonsoft.Json;
 public static class Helpers{
     public static string GetVideoId(string url)
     {
@@ -9,37 +9,15 @@ public static class Helpers{
         
         return match.Success ? match.Groups[1].Value : null;
     }
-    public static string ExecuteCommand(string fileName, string arguments)
-    {
-        string argumentsEscaped = arguments.Replace("\"", "\\\"");
-        string fullArgs = $"-c \"echo sudo \\\"{fileName}\\\" {argumentsEscaped} | at now\"";
+    
+    public static List<string> GetResponseLines(string response){
+        var lines = response
+                    .Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries)
+                    .ToList();
+          if (lines.Count > 0)
+                    lines.RemoveAt(lines.Count - 1);
+        return lines;
+                
 
-        var processInfo = new ProcessStartInfo
-        {
-            FileName = "/bin/bash",
-            Arguments = fullArgs,
-            RedirectStandardOutput = true,
-            RedirectStandardError = true,
-            CreateNoWindow = true,
-            UseShellExecute = false,
-            WindowStyle = ProcessWindowStyle.Hidden
-        };
-
-        using var process = Process.Start(processInfo);
-
-        // Capture the output and error
-        string output = process.StandardOutput.ReadToEnd();
-        string error = process.StandardError.ReadToEnd();
-
-        process.WaitForExit();
-
-        // Return output and error as a single string
-        if (process.ExitCode != 0)
-        {
-            throw new Exception($"Command failed with error: {error}");
-        }
-
-        return output;
     }
-   
 }

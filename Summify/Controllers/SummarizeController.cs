@@ -14,14 +14,18 @@ using Microsoft.AspNetCore.Mvc;
         [HttpPost]
         public async Task<IActionResult> Summarize([FromBody] SummarizeRequest summarizeRequest)
         {   
-            return Ok(_summarizeService.Summarize("summarizeRequest"));
             var summarizedText = string.Empty;
             if (summarizeRequest.VideoUrl == null || string.IsNullOrWhiteSpace(summarizeRequest.VideoUrl))
             {
                 return BadRequest("Invalid URL.");
             }
             var videoContent = _youtubeService.GetVideoText(summarizeRequest);
-            return Ok(videoContent);
+            if(videoContent != null){
+                return Ok(await _summarizeService.Summarize(videoContent, summarizeRequest.NumberOfSentences));
+            }
+            else{
+                return BadRequest("Video has no captions!");
+            }
             
         }
 

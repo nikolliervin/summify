@@ -1,4 +1,4 @@
   public interface ISummarizeService
     {
-        string Summarize(string text);
+        Task<string> Summarize(string text, int sentences);
     }

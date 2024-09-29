@@ -8,7 +8,7 @@ public class ExceptionMiddleware {
     public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
     {
         _next = next;
-        _logger = logger;    
+        _logger = logger;   
     }
 
     public async Task InvokeAsync(Microsoft.AspNetCore.Http.HttpContext context){
