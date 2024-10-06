@@ -2,6 +2,10 @@ using System.Text.RegularExpressions;
 using System.Diagnostics;
 using Newtonsoft.Json;
 using YoutubeTranscriptApi;
+using System.Text;
+using iText;
+using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Canvas.Parser;
 public static class Helpers{
     public static string GetVideoId(string url)
     {
@@ -32,4 +36,31 @@ public static class Helpers{
 
         return combinedText;
     }
+
+    public static string ExtractText(string base64Pdf)
+    {   
+         byte[] pdfBytes = Convert.FromBase64String(base64Pdf);
+  
+         using (var memoryStream = new MemoryStream(pdfBytes))
+         {
+             using (var pdfReader = new iText.Kernel.Pdf.PdfReader(memoryStream))
+             {
+                 using (var pdfDocument = new PdfDocument(pdfReader))
+                 {
+                     StringBuilder text = new StringBuilder();
+              
+                     for (int i = 1; i <= pdfDocument.GetNumberOfPages(); i++)
+                     {
+                         string pageText = PdfTextExtractor.GetTextFromPage(pdfDocument.GetPage(i));
+                         text.AppendLine(pageText);
+                     
+                     }
+                     return text.ToString();
+
+                 }
+            }
+
+        }
+    }   
+
 }

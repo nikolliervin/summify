@@ -17,7 +17,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IYouTubeService, YoutubeService>();
-builder.Services.AddScoped<IPdfService, PdfSummarizeService>();
+builder.Services.AddScoped<IPdfService, PdfService>();
 
 
 // Register the common factory
