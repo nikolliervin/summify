@@ -1,6 +1,7 @@
 using System.Text.RegularExpressions;
 using System.Diagnostics;
 using Newtonsoft.Json;
+using YoutubeTranscriptApi;
 public static class Helpers{
     public static string GetVideoId(string url)
     {
@@ -19,5 +20,16 @@ public static class Helpers{
         return lines;
                 
 
+    }
+
+    public static string GetVideoText(string videoId)
+    {   
+        var youTubeTranscriptApi = new YouTubeTranscriptApi();
+        
+        var transcriptItems = youTubeTranscriptApi.GetTranscript(videoId);
+        
+        var combinedText = string.Join(" ", transcriptItems.Select(item => item.Text));
+
+        return combinedText;
     }
 }

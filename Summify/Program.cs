@@ -15,8 +15,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<ISummarizeService, SummarizeService>();
-builder.Services.AddScoped<IYouTubeService, YouTubeService>();
+
+builder.Services.AddScoped<IYouTubeService, YoutubeService>();
+builder.Services.AddScoped<IPdfService, PdfSummarizeService>();
+
+
+// Register the common factory
+builder.Services.AddScoped<ISummarizerFactory, SummarizerFactory>();
+builder.Services.AddScoped<ITypeService, TypeService>();
 
 builder.Services.AddRateLimiter(options =>
 {

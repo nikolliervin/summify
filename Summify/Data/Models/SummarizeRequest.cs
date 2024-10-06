@@ -1,12 +1,12 @@
 using System.ComponentModel.DataAnnotations;
 
-public class SummarizeRequest{
-    
+public class SummarizeRequest
+{
     [Required]
-    public string? VideoUrl { get; set; }
+    public string Type { get; set; } = string.Empty; 
 
-    public int NumberOfSentences { get; set;}
+    [Required]
+    public string Content { get; set; } = string.Empty; 
 
-    public List<string>? Language { get; set; }
-
+    public int NumberOfSentences { get; set; }
 }
