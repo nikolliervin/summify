@@ -1,23 +1,21 @@
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.Extensions.Options;
 
 public class PdfService : IPdfService
 {   
-    private readonly IConfiguration _configuration;
     private readonly HttpClient _httpClient;
-    public PdfService(IConfiguration configuration)
+    private readonly AppSettings _appSettings;
+    public PdfService(IOptions<AppSettings> appSettings)
     {
-        _configuration = configuration;
         _httpClient = new HttpClient();
+        _appSettings = appSettings.Value;
     }
     public async Task<string> Summarize(SummarizeRequest summarizeRequest)
     {
-       var httpClientTimeout = _configuration["HttpClientTimeout"];
-       var url = _configuration["OllamaAPI"];
-       var model = _configuration["OllamaModel"];
        summarizeRequest.Content = Helpers.ExtractText(summarizeRequest.Content);
-       _httpClient.Timeout = TimeSpan.FromMinutes(Convert.ToInt32(httpClientTimeout));
+       _httpClient.Timeout = TimeSpan.FromMinutes(Convert.ToInt32(_appSettings.HttpClientTimeout));
    
-       var ollamaHelper = new OllamaHelper(url, model, _httpClient);
+       var ollamaHelper = new OllamaHelper(_appSettings.OllamaAPI, _appSettings.OllamaModel, _httpClient);
        var summary = await ollamaHelper.GetSummaryAsync(summarizeRequest.Content, 10);
        
        return summary;

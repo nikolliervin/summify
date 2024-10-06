@@ -56,7 +56,7 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "summify-api", Version = "v1.0.0" });
 });
 
-builder.Services.Configure<MySettings>(builder.Configuration.GetSection("Keys"));
+builder.Services.Configure<AppSettings>(builder.Configuration);
 var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseRateLimiter();
