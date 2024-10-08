@@ -18,7 +18,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IYouTubeService, YoutubeService>();
 builder.Services.AddScoped<IPdfService, PdfService>();
-
+builder.Services.AddScoped<IArticleService, ArticleService>();
 
 // Register the common factory
 builder.Services.AddScoped<ISummarizerFactory, SummarizerFactory>();

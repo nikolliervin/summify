@@ -13,6 +13,7 @@ public class SummarizerFactory : ISummarizerFactory
         {
             "youtube" => _serviceProvider.GetService<IYouTubeService>()!,
             "pdf" => _serviceProvider.GetService<IPdfService>()!,
+            "article/website" => _serviceProvider.GetService<IArticleService>()!,
         _   => throw new ArgumentException("Invalid summarization type")
         };
     }

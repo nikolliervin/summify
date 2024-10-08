@@ -9,6 +9,7 @@ public class OllamaHelper
     private readonly string _model;
     private readonly HttpClient _httpClient;
 
+
     public OllamaHelper(string url, string model, HttpClient httpClient)
     {
         _url = url;
@@ -16,12 +17,12 @@ public class OllamaHelper
         _httpClient = httpClient;
     }
 
-    public async Task<string> GetSummaryAsync(string content, int numberOfSentences)
+    public async Task<string> GetSummaryAsync(string content, int numberOfSentences, string additionalPrompt = "")
     {   
         var payload = new OllamaRequest
         {
             Model = _model,
-            Prompt = Constants.GetSummaryPrompt(numberOfSentences, content)
+            Prompt = Constants.GetSummaryPrompt(numberOfSentences, content, additionalPrompt)
         };
         
         var json = JsonConvert.SerializeObject(payload);
