@@ -19,6 +19,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IYouTubeService, YoutubeService>();
 builder.Services.AddScoped<IPdfService, PdfService>();
 builder.Services.AddScoped<IArticleService, ArticleService>();
+builder.Services.AddScoped<ITextService, TextService>();
 
 // Register the common factory
 builder.Services.AddScoped<ISummarizerFactory, SummarizerFactory>();
@@ -57,6 +58,16 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.Configure<AppSettings>(builder.Configuration);
+builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowAllOrigins",
+            builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            });
+    });
 var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseRateLimiter();
@@ -70,7 +81,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors("AllowAllOrigins");
 app.UseHttpsRedirection();
 app.MapControllers();
 app.Run();

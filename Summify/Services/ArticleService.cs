@@ -15,7 +15,7 @@ public class ArticleService : IArticleService
     {   
         summarizeRequest.Content = await _httpClient.GetAsync(summarizeRequest.Content).Result.Content.ReadAsStringAsync();
         summarizeRequest.Content = Helpers.ExtractArticleText(summarizeRequest.Content);
-        var ollamaHelper = new OllamaHelper(_appSettings.OllamaAPI, _appSettings.OllamaModel, _httpClient);
+        var ollamaHelper = new OllamaHelper(_appSettings.OllamaAPI, summarizeRequest.Model, _httpClient);
         var summary = await ollamaHelper.GetSummaryAsync(summarizeRequest.Content, summarizeRequest.NumberOfSentences, Constants.GetArticleSummaryBonusPrompt());
         return summary;
     }

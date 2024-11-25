@@ -17,8 +17,8 @@ public class YoutubeService : IYouTubeService
        
        _httpClient.Timeout = TimeSpan.FromMinutes(Convert.ToInt32(_appSettings.HttpClientTimeout));
    
-       var ollamaHelper = new OllamaHelper(_appSettings.OllamaAPI, _appSettings.OllamaModel, _httpClient);
-       var summary = await ollamaHelper.GetSummaryAsync(summarizeRequest.Content, 10);
+       var ollamaHelper = new OllamaHelper(_appSettings.OllamaAPI, summarizeRequest.Model, _httpClient);
+       var summary = await ollamaHelper.GetSummaryAsync(summarizeRequest.Content, summarizeRequest.NumberOfSentences, summarizeRequest.Model);
        
        return summary;
     }

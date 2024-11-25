@@ -10,7 +10,8 @@ public class SummarizerFactory : ISummarizerFactory
     public ISummarizeService GetSummarizer(string type)
     {
         return type switch
-        {
+        {   
+            "text" => _serviceProvider.GetService<ITextService>()!,
             "youtube" => _serviceProvider.GetService<IYouTubeService>()!,
             "pdf" => _serviceProvider.GetService<IPdfService>()!,
             "article/website" => _serviceProvider.GetService<IArticleService>()!,

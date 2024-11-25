@@ -14,4 +14,10 @@ public class SummifyTypeController : ControllerBase{
         return Ok(_typeService.Types());
     }
 
+    [HttpGet("models")]
+    public async Task<IActionResult> Models()
+    {
+        return Ok(_typeService.Models());
+    }
+
 }

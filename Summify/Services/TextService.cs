@@ -1,20 +1,17 @@
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.Extensions.Options;
-
-public class PdfService : IPdfService
+using Newtonsoft.Json;
+using System.Text;
+public class TextService : ITextService
 {   
     private readonly HttpClient _httpClient;
     private readonly AppSettings _appSettings;
-    public PdfService(IOptions<AppSettings> appSettings)
+    public TextService(IOptions<AppSettings> appSettings)
     {
         _httpClient = new HttpClient();
         _appSettings = appSettings.Value;
     }
     public async Task<string> Summarize(SummarizeRequest summarizeRequest)
     {
-       summarizeRequest.Content = Helpers.ExtractText(summarizeRequest.Content);
-       _httpClient.Timeout = TimeSpan.FromMinutes(Convert.ToInt32(_appSettings.HttpClientTimeout));
-   
        var ollamaHelper = new OllamaHelper(_appSettings.OllamaAPI, summarizeRequest.Model, _httpClient);
        var summary = await ollamaHelper.GetSummaryAsync(summarizeRequest.Content, summarizeRequest.NumberOfSentences, summarizeRequest.Model);
        

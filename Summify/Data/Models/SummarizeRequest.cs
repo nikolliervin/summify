@@ -9,4 +9,6 @@ public class SummarizeRequest
     public string Content { get; set; } = string.Empty; 
 
     public int NumberOfSentences { get; set; }
+
+    public string Model {get; set;} 
 }

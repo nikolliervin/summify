@@ -17,11 +17,11 @@ public class OllamaHelper
         _httpClient = httpClient;
     }
 
-    public async Task<string> GetSummaryAsync(string content, int numberOfSentences, string additionalPrompt = "")
+    public async Task<string> GetSummaryAsync(string content, int numberOfSentences, string model, string additionalPrompt = "")
     {   
         var payload = new OllamaRequest
         {
-            Model = _model,
+            Model = String.IsNullOrWhiteSpace(model) ? _model : model,
             Prompt = Constants.GetSummaryPrompt(numberOfSentences, content, additionalPrompt)
         };
         

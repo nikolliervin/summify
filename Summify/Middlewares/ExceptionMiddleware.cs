@@ -13,6 +13,7 @@ public class ExceptionMiddleware {
 
     public async Task InvokeAsync(Microsoft.AspNetCore.Http.HttpContext context){
         try{
+            Console.WriteLine(context.Request.Body);
             await _next(context); 
         }
         catch(Exception ex){
